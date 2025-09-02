@@ -26,8 +26,8 @@
             background-size: cover; 
             background-repeat: no-repeat;
         }
-/*background-image: url('fondo plantas.jpg');*/
-         Elementos decorativos de plantas 
+/*background-image: url('fondo plantas.jpg');
+         Elementos decorativos de plantas*/
         body::before {
             content: '';
             position: absolute;
@@ -202,15 +202,25 @@
         }
 
         .btn-secondary {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            color: #4a7c59;
-            border: 2px solid #4a7c59;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+           display: inline-flex; /* Cambia a inline-flex para mejor alineación */
+           align-items: center;  /* Centra verticalmente el ícono y el texto */
+           justify-content: center;
+           width: 100%;          /* Solo el ancho necesario */
+           padding: 15px;   /* Padding horizontal */
+           background: transparent;
+           color: #4a7c59;
+           border: 2px solid #4a7c59;
+           border-radius: 10px;
+           font-size: 1rem;
+           cursor: pointer;
+           transition: all 0.3s ease;
+           text-decoration: none;
+           margin-bottom: 10px;  /* Espacio debajo del botón */
+        }
+        
+        .btn-secondary a {
+           text-decoration: none;
+           color: inherit;
         }
 
         .btn-secondary:hover {
@@ -298,9 +308,11 @@
                     <i class="fas fa-sign-in-alt"></i>Iniciar Sesión 
                 </button>
 
-                <button class="btn-secondary" onclick="irATienda()">
-                    <i class="fas fa-store"></i> <a href="viveroinicio.html">Ver Tienda</a>
-                </button>
+                 <div style="text-align: center;">
+                    <a href="viveromenu.html" class="btn-secondary">
+                    <i class="fas fa-store"></i> Ver Tienda
+                </a>
+                </div>
 
                 <div class="register-link">
                     <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
@@ -345,4 +357,5 @@
         });
     </script>  
 </body>  
+
 </html>
