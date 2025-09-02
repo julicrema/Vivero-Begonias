@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivero begonias - Catálogo de Productos</title>
+    <link rel="stylesheet" href="vivero-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1>Vivero begonias</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#catalogo">Catálogo</a></li>
+                        <li><a href="#categorias">Categorías</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Descubre la Belleza de la Naturaleza</h2>
+                    <p>Encuentra las mejores plantas, flores y elementos de jardinería para crear tu espacio verde perfecto</p>
+                    <button class="btn-primary" onclick="scrollToCatalog()">Ver Catálogo</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories" id="categorias">
+            <div class="container">
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('plantas')">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Plantas</h3>
+                        <p>Plantas de interior y exterior</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('flores')">
+                        <i class="fas fa-flower-tulip"></i>
+                        <h3>Flores</h3>
+                        <p>Hermosas flores para tu jardín</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('jardineria')">
+                        <i class="fas fa-tools"></i>
+                        <h3>Jardinería</h3>
+                        <p>Herramientas y accesorios</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('macetas')">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Macetas</h3>
+                        <p>Macetas y contenedores</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog" id="catalogo">
+            <div class="container">
+                <div class="catalog-header">
+                    <h2 class="section-title">Catálogo de Productos</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterByCategory('todos')">Todos</button>
+                        <button class="filter-btn" onclick="filterByCategory('plantas')">Plantas</button>
+                        <button class="filter-btn" onclick="filterByCategory('flores')">Flores</button>
+                        <button class="filter-btn" onclick="filterByCategory('jardineria')">Jardinería</button>
+                        <button class="filter-btn" onclick="filterByCategory('macetas')">Macetas</button>
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Carrito de Compras -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Carrito de Compras</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Los items del carrito se cargarán dinámicamente -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">
+                    <i class="fas fa-credit-card"></i> Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Vivero begonias</h4>
+                    <p>Cultivando sueños, creando espacios verdes</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-phone"></i> +54 11 1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> info@viverobegoniass.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="vivero-script.js"></script>
+</body>
+</html> 
