@@ -245,7 +245,7 @@
             padding-left: 20px;
             position: relative;
         }
-
+/*
         .password-requirements li::before {
             content: '✓';
             position: absolute;
@@ -253,7 +253,7 @@
             color: #4a7c59;
             font-weight: bold;
         }
-
+*/
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -333,10 +333,10 @@
                 <div class="password-requirements">
                     <h4>Requisitos de contraseña:</h4>
                     <ul>
-                        <li>Mínimo 8 caracteres</li>
-                        <li>Al menos una letra mayúscula</li>
-                        <li>Al menos un número</li>
-                        <li>Al menos un carácter especial</li>
+                        <li>✓  Mínimo 8 caracteres</li>
+                        <li>✓  Al menos una letra mayúscula</li>
+                        <li>✓  Al menos un número</li>
+                        <li>✓  Al menos un carácter especial</li>
                     </ul>
                 </div>
 
@@ -450,17 +450,19 @@
             const requirements = document.querySelectorAll('.password-requirements li');
             
             // Validar longitud mínima
-            requirements[0].style.color = password.length >= 8 ? '#4a7c59' : '#666';
+            requirements[0].style.color = password.length >= 8 ? '#4a7c59' : '#ff0000';
             
             // Validar mayúscula
-            requirements[1].style.color = /[A-Z]/.test(password) ? '#4a7c59' : '#666';
+            requirements[1].style.color = /[A-Z]/.test(password) ? '#4a7c59' : '#ff0000';
             
             // Validar número
-            requirements[2].style.color = /\d/.test(password) ? '#4a7c59' : '#666';
+            requirements[2].style.color = /\d/.test(password) ? '#4a7c59' : '#ff0000';
             
             // Validar carácter especial
-            requirements[3].style.color = /[!@#$%^&*(),.?":{}|<>]/.test(password) ? '#4a7c59' : '#666';
+            requirements[3].style.color = /[!@#$%^&*(),.?":{}|<>]/.test(password) ? '#4a7c59' : '#ff0000';
         });
     </script>  
 </body>  
 </html>
+
+
