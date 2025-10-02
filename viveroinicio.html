@@ -308,7 +308,7 @@ Elementos decorativos de plantas*/
                 </button>
                 
                 <div style="text-align: center;">
-                    <a href="viveromenu.html" class="btn-secondary">
+                    <a href="index.html" class="btn-secondary">
                     <i class="fas fa-store"></i> Ver Tienda
                 </a>
                 </div>
@@ -339,14 +339,14 @@ Elementos decorativos de plantas*/
             if (usuario) {  
                 alert('¡Bienvenido a Vivero Verde! 🌱');
                 localStorage.setItem('usuario_logueado', JSON.stringify(usuario));
-                window.location.href = 'viveromenu.html'; // Redireccionar a la página principal
+                window.location.href = 'index.html'; // Redireccionar a la página principal
             } else {  
                 alert('Usuario o contraseña incorrectos. Inténtalo de nuevo.');
             }  
         }
 
         function irATienda() {
-            window.location.href = 'tienda.html';
+            window.location.href = 'index.html';
         }
 
         // Agregar funcionalidad de Enter para login
@@ -357,4 +357,5 @@ Elementos decorativos de plantas*/
         });
     </script>  
 </body>  
+
 </html>
