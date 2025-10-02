@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivero Begonias - Catálogo de Productos</title>
+    <link rel="stylesheet" href="vivero-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1>Vivero Begonias</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#catalogo">Catálogo</a></li>
+                        <li><a href="#categorias">Categorías</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <div class="user-icon" onclick="toggleUserMenu()">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Descubre la Belleza de la Naturaleza</h2>
+                    <p>Encuentra las mejores plantas, flores y elementos de jardinería para crear tu espacio verde perfecto</p>
+                    <button class="btn-primary" onclick="scrollToCatalog()">Ver Catálogo</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories" id="categorias">
+            <div class="container">
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('plantas')">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Plantas</h3>
+                        <p>Plantas de interior y exterior</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('flores')">
+                        <i class="fas fa-flower-tulip"></i>
+                        <h3>Flores</h3>
+                        <p>Hermosas flores para tu jardín</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('jardineria')">
+                        <i class="fas fa-tools"></i>
+                        <h3>Jardinería</h3>
+                        <p>Herramientas y accesorios</p>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('macetas')">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Macetas</h3>
+                        <p>Macetas y contenedores</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog" id="catalogo">
+            <div class="container">
+                <div class="catalog-header">
+                    <h2 class="section-title">Catálogo de Productos</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterByCategory('todos')">Todos</button>
+                        <button class="filter-btn" onclick="filterByCategory('plantas')">Plantas</button>
+                        <button class="filter-btn" onclick="filterByCategory('flores')">Flores</button>
+                        <button class="filter-btn" onclick="filterByCategory('jardineria')">Jardinería</button>
+                        <button class="filter-btn" onclick="filterByCategory('macetas')">Macetas</button>
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Carrito de Compras -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Carrito de Compras</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Los items del carrito se cargarán dinámicamente -->
+            </div>
+            <div class="cart-footer">
+                <div class="payment-section">
+                    <div class="payment-header" onclick="togglePaymentSection()">
+                        <h4><i class="fas fa-credit-card"></i> Método de Pago</h4>
+                        <button class="payment-toggle-btn" id="paymentToggleBtn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="payment-content" id="paymentContent">
+                        <div class="payment-methods" id="paymentMethods">
+                            <!-- Los métodos de pago se cargarán dinámicamente -->
+                        </div>
+                        <button class="btn-add-payment" onclick="showAddPaymentModal()">
+                            <i class="fas fa-plus"></i> Agregar Método de Pago
+                        </button>
+                    </div>
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">
+                    <i class="fas fa-credit-card"></i> Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar método de pago -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-credit-card"></i> Agregar Método de Pago</h3>
+                <button class="close-modal" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="paymentForm">
+                    <div class="form-field">
+                        <label for="cardType">Tipo de Tarjeta</label>
+                        <select id="cardType" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="american-express">American Express</option>
+                            <option value="diners">Diners Club</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="cardNumber">Número de Tarjeta</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="cardHolder">Nombre del Titular</label>
+                        <input type="text" id="cardHolder" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="expiryDate">Fecha de Vencimiento</label>
+                            <input type="text" id="expiryDate" placeholder="MM/AA" maxlength="5" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="saveCard" checked>
+                            <span class="checkmark"></span>
+                            Guardar esta tarjeta para futuras compras
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closePaymentModal()">Cancelar</button>
+                <button class="btn-primary" onclick="addPaymentMethod()">Agregar Tarjeta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de usuario -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user"></i> Mi Perfil</h3>
+                <button class="close-modal" onclick="closeUserModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                 <div id="userNotLogged" style="display:none; text-align:center;">
+                        <p style="margin-bottom:1.5rem; color:#555;">No has iniciado sesión.</p>
+                        <a href="viveroinicio.html" class="btn-primary" style="width:100%;text-decoration:none;">Iniciar Sesión</a>
+                </div>
+                <form id="userForm">
+                    <div class="form-field">
+                        <label for="userName">Nombre</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="userPassword">Contraseña</label>
+                        <input type="password" id="userPassword" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Métodos de Pago</label>
+                       <div id="userCards"></div>
+                        <button type="button" class="btn-add-payment btn-primary" style="width:100%;margin-top:1rem;" onclick="showAddPaymentModal()">
+                            <i class="fas fa-plus"></i> Agregar Tarjeta
+                        </button>
+                        <button type="button" class="btn-primary btn-history" style="margin-top: 1rem; width: 100%;" onclick="showPurchaseHistory()">
+                            <i class="fas fa-history"></i> Ver Historial
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="logout()">Cerrar Sesión</button>
+                <button class="btn-primary" onclick="saveUserData()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para historial de compras -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-content history-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Historial de Compras</h3>
+                <button class="close-modal" onclick="closeHistoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="purchase-history" id="purchaseHistory">
+                    <!-- El historial se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Vivero Begonias</h4>
+                    <p>Cultivando sueños, creando espacios verdes</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-phone"></i> +54 11 1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> info@viverobegoniass.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="vivero-script.js"></script>
+
+     <script src="vivero-script.js"></script>
+    <script>
+// Leer productos desde localStorage
+function leerProductos() {
+    const data = localStorage.getItem('vivero_productos');
+    try { return data ? JSON.parse(data) : []; } catch(e) { return []; }
+}
+
+// Leer categorías desde localStorage
+function leerCategorias() {
+    const data = localStorage.getItem('vivero_categorias');
+    try { return data ? JSON.parse(data) : []; } catch(e) { return []; }
+}
+
+function renderCategorias() {
+    const categorias = leerCategorias();
+    const grid = document.querySelector('.categories-grid');
+    grid.innerHTML = '';
+
+    if (!categorias.length) {
+        grid.innerHTML = '<p style="text-align:center;">No hay categorías disponibles.</p>';
+        return;
+    }
+
+    categorias.forEach(cat => {
+        grid.innerHTML += `
+            <div class="category-card" onclick="filterByCategory('${cat}')">
+                <i class="fas fa-leaf"></i>
+                <h3>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+                <p>Ver productos de ${cat}</p>
+            </div>
+        `;
+    });
+}
+
+// Renderizar productos en el catálogo
+function renderProductos(categoria = 'todos') {
+    const productos = leerProductos();
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+
+    let filtrados = categoria === 'todos' ? productos : productos.filter(p => p.categoria === categoria);
+
+    if (!filtrados.length) {
+        grid.innerHTML = '<p style="text-align:center;">No hay productos en esta categoría.</p>';
+        return;
+    }
+
+    filtrados.forEach(p => {
+        grid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.imagen || 'imagenes/default.jpg'}" alt="${p.nombre}" class="product-img">
+                <h3>${p.nombre}</h3>
+                <p class="product-cat">${p.categoria}</p>
+                <p class="product-desc">${p.descripcion}</p>
+                <p class="product-price">$${Number(p.precio).toLocaleString()}</p>
+                <span class="badge ${p.disponibilidad ? 'success' : 'warning'}">${p.disponibilidad ? 'Disponible' : 'Agotado'}</span>
+                <button class="btn-add-cart" ${!p.disponibilidad ? 'disabled' : ''}>Agregar al carrito</button>
+            </div>
+        `;
+    });
+}
+
+// Renderizar botones de filtro
+function renderFilterButtons() {
+    const categorias = leerCategorias();
+    const container = document.querySelector('.filter-buttons');
+    container.innerHTML = `<button class="filter-btn active" onclick="filterByCategory('todos')">Todos</button>`;
+    categorias.forEach(cat => {
+        container.innerHTML += `<button class="filter-btn" onclick="filterByCategory('${cat}')">${cat.charAt(0).toUpperCase() + cat.slice(1)}</button>`;
+    });
+}
+
+// Filtrar por categoría
+function filterByCategory(cat) {
+    renderProductos(cat);
+}
+
+// Inicializar catálogo al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    renderCategorias();
+    renderFilterButtons();
+    renderProductos('todos');
+});
+</script>
+</body>
+</html>

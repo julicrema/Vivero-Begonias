@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración | Vivero Begonias</title>
+    <link rel="stylesheet" href="vivero-styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <h1>Vivero Begonias · Admin</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="viveroinicio.html">Inicio</a></li>
+                    <li><a href="viveromenu.html">Tienda</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin container">
+        <section class="admin-header">
+            <h2 class="section-title">Panel de Administración</h2>
+            <p>Gestiona productos, categorías, inventario e imágenes.</p>
+        </section>
+
+        <section class="admin-grid">
+            <aside class="admin-sidebar">
+                <button class="admin-tab active" data-target="#productos"><i class="fa-solid fa-leaf"></i> Productos</button>
+                <button class="admin-tab" data-target="#categorias"><i class="fa-solid fa-tags"></i> Categorías</button>
+                <button class="admin-tab" data-target="#inventario"><i class="fa-solid fa-boxes-stacked"></i> Inventario</button>
+            </aside>
+
+            <section class="admin-content">
+                <!-- Productos -->
+                <div id="productos" class="admin-panel active">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-plus"></i> Agregar / Editar producto</h3>
+                        <form id="productoForm" class="form-grid" onsubmit="return false;">
+                            <input type="hidden" id="productoId" />
+                            <div class="form-field">
+                                <label for="nombre">Nombre</label>
+                                <input id="nombre" type="text" placeholder="Ej. Monstera Deliciosa" required />
+                            </div>
+                            <div class="form-field">
+                                <label for="categoria">Categoría</label>
+                                <select id="categoria" required>
+                                    <option value="plantas">Plantas</option>
+                                    <option value="flores">Flores</option>
+                                    <option value="jardineria">Jardinería</option>
+                                    <option value="macetas">Macetas</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="precio">Precio</label>
+                                <input id="precio" type="number" step="0.01" placeholder="0.00" required />
+                            </div>
+                            <div class="form-field">
+                                <label>Disponible</label>
+                                <div class="switch">
+                                    <input type="checkbox" id="disponible" checked/>
+                                    <label for="disponible"></label>
+                                </div>
+                            </div>
+                            <div class="form-field form-span-2">
+                                <label for="descripcion">Descripción</label>
+                                <textarea id="descripcion" rows="3" placeholder="Breve descripción del producto..." required></textarea>
+                            </div>
+                            <div class="form-field">
+                                <label for="imagen">Imagen del producto</label>
+                                <label for="imagen" class="btn-outline" style="display:inline-block; cursor:pointer;">
+                                    <i class="fa-solid fa-image"></i> Seleccionar imagen
+                                </label>
+                                <input id="imagen" type="file" accept="image/*" style="display:none;"/>
+                            </div>
+                            <div class="form-actions form-span-2">
+                                <button id="guardarBtn" class="btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+                           <!-- <button id="cancelarEdicionBtn" class="btn-outline" type="button" style="display:none;"><i class="fa-solid fa-xmark"></i> Cancelar edición</button> -->
+                                <button class="btn-outline" type="reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>6
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-table"></i> Lista de productos</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Precio</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productosTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categorías -->
+                <div id="categorias" class="admin-panel">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-tags"></i> Gestión de categorías</h3>
+                        <form class="form-inline" onsubmit="return false;">
+                            <input type="text" placeholder="Nueva categoría" />
+                            <button class="btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Agregar</button>
+                        </form>
+                        <ul class="pill-list">
+                            <li class="pill">Plantas <button class="icon-btn small" title="Eliminar"><i class="fa-solid fa-xmark"></i></button></li>
+                            <li class="pill">Flores <button class="icon-btn small" title="Eliminar"><i class="fa-solid fa-xmark"></i></button></li>
+                            <li class="pill">Macetas <button class="icon-btn small" title="Eliminar"><i class="fa-solid fa-xmark"></i></button></li>
+                            <li class="pill">Herramientas <button class="icon-btn small" title="Eliminar"><i class="fa-solid fa-xmark"></i></button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Inventario -->
+                <div id="inventario" class="admin-panel">
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-boxes-stacked"></i> Ajustes de inventario</h3>
+                        <form class="form-grid" onsubmit="return false;">
+                            <div class="form-field">
+                                <label>ID / Nombre del producto</label>
+                                <input type="text" placeholder="Buscar producto" />
+                            </div>
+                            <div class="form-field">
+                                <label>Nuevo stock</label>
+                                <input type="number" min="0" placeholder="0" />
+                            </div>
+                            <div class="form-actions form-span-2">
+                                <button class="btn-primary" type="submit"><i class="fa-solid fa-box-archive"></i> Actualizar</button>
+                                <button class="btn-outline" type="reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    
+    <script>
+        // Helpers de almacenamiento
+        function leerProductos() {
+            const data = localStorage.getItem('vivero_productos');
+            try { return data ? JSON.parse(data) : []; } catch(e) { return []; }
+        }
+        function guardarProductos(lista) {
+            localStorage.setItem('vivero_productos', JSON.stringify(lista));
+        }
+        function leerCategorias() {
+            const data = localStorage.getItem('vivero_categorias');
+            try { return data ? JSON.parse(data) : []; } catch(e) { return []; }
+        }
+        function guardarCategorias(lista) {
+            localStorage.setItem('vivero_categorias', JSON.stringify(lista));
+        }
+
+        // Render de tabla
+        function renderTabla() {
+            const tbody = document.getElementById('productosTbody');
+            const lista = leerProductos();
+            tbody.innerHTML = '';
+            lista.forEach(function(p){
+                var tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${p.nombre}</td>
+                    <td>${p.categoria}</td>
+                    <td>$${Number(p.precio).toLocaleString()}</td>
+                    <td>${p.disponibilidad ? '<span class="badge success">Disponible</span>' : '<span class="badge warning">Agotado</span>'}</td>
+                    <td class="table-actions">
+                        <button class="icon-btn" title="Editar" onclick='editarProducto(${p.id})'><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn" title="Disponibilidad" onclick='toggleDisponible(${p.id})'><i class="fa-solid fa-toggle-on"></i></button>
+                        <button class="icon-btn danger" title="Eliminar" onclick='eliminarProducto(${p.id})'><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Secuencia de IDs
+        function proximoId(lista) {
+            if (!lista.length) return 1;
+            return Math.max.apply(null, lista.map(function(p){ return Number(p.id)||0; })) + 1;
+        }
+
+        // CRUD
+        function resetForm() {
+            document.getElementById('productoId').value = '';
+            document.getElementById('productoForm').reset();
+            document.getElementById('disponible').checked = true;
+            document.getElementById('cancelarEdicionBtn').style.display = 'none';
+            document.getElementById('guardarBtn').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar';
+        }
+
+        function editarProducto(id) {
+            const lista = leerProductos();
+            const p = lista.find(function(x){ return Number(x.id) === Number(id); });
+            if (!p) return;
+            document.getElementById('productoId').value = p.id;
+            document.getElementById('nombre').value = p.nombre;
+            renderSelectCategorias(p.categoria); // <-- aquí
+            document.getElementById('precio').value = p.precio;
+            document.getElementById('descripcion').value = p.descripcion;
+            document.getElementById('disponible').checked = !!p.disponibilidad;
+            document.getElementById('cancelarEdicionBtn').style.display = 'inline-block';
+            document.getElementById('guardarBtn').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Actualizar';
+        }
+
+        function eliminarProducto(id) {
+            if (!confirm('¿Eliminar este producto?')) return;
+            const lista = leerProductos().filter(function(p){ return Number(p.id) !== Number(id); });
+            guardarProductos(lista);
+            renderTabla();
+        }
+
+        function toggleDisponible(id) {
+            const lista = leerProductos();
+            const idx = lista.findIndex(function(p){ return Number(p.id) === Number(id); });
+            if (idx === -1) return;
+            lista[idx].disponibilidad = !lista[idx].disponibilidad;
+            guardarProductos(lista);
+            renderTabla();
+        }
+
+        function upsertProducto(desdeForm) {
+            const lista = leerProductos();
+            var id = document.getElementById('productoId').value.trim();
+            var nombre = document.getElementById('nombre').value.trim();
+            var categoria = document.getElementById('categoria').value;
+            var precio = parseFloat(document.getElementById('precio').value);
+            var descripcion = document.getElementById('descripcion').value.trim();
+            var disponibilidad = document.getElementById('disponible').checked;
+            var icono = categoria === 'flores' ? 'fas fa-flower-tulip' : (categoria === 'jardineria' ? 'fas fa-tools' : 'fas fa-seedling');
+            var imagenInput = document.getElementById('imagen');
+            
+            if (!nombre || isNaN(precio) || !descripcion) return;
+
+            // Función para guardar el producto con imagen
+            function guardarConImagen(imagenBase64) {
+                if (id) {
+                    // update
+                    var idx = lista.findIndex(function(p){ return Number(p.id) === Number(id); });
+                    if (idx !== -1) {
+                        lista[idx] = { 
+                            id: Number(id), 
+                            nombre: nombre, 
+                            categoria: categoria, 
+                            precio: precio, 
+                            descripcion: descripcion, 
+                            disponibilidad: disponibilidad, 
+                            icono: icono,
+                            imagen: imagenBase64 || lista[idx].imagen || null // mantiene imagen previa si no se sube nueva
+                        };
+                    }
+                } else {
+                    // insert
+                    var nuevoId = proximoId(lista);
+                    lista.push({ 
+                        id: nuevoId, 
+                        nombre: nombre, 
+                        categoria: categoria, 
+                        precio: precio, 
+                        descripcion: descripcion, 
+                        disponibilidad: disponibilidad, 
+                        icono: icono,
+                        imagen: imagenBase64 || null
+                    });
+                }
+                guardarProductos(lista);
+                renderTabla();
+                resetForm();
+            }
+
+            // Si hay imagen nueva, leerla como base64
+            if (imagenInput.files && imagenInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    guardarConImagen(e.target.result);
+                };
+                reader.readAsDataURL(imagenInput.files[0]);
+            } else {
+                guardarConImagen(null);
+            }
+        }
+
+        // Inicialización de Admin
+        document.addEventListener('DOMContentLoaded', function(){
+            // Render inicial
+            if (!localStorage.getItem('vivero_productos')) {
+                // Si no existe, inicializar con defaults del sitio principal si está disponible vía window
+                // En esta página no importamos el script principal, así que simplemente aseguramos un array
+                localStorage.setItem('vivero_productos', JSON.stringify([]));
+            }
+            // Si está vacío, opcionalmente dejamos vacío y el sitio principal agregará defaults al cargar
+            renderTabla();
+            renderSelectCategorias();
+            renderCategoriasAdmin();
+            // Eventos del formulario
+            document.getElementById('productoForm').addEventListener('submit', function(e){ e.preventDefault(); upsertProducto(true); });
+            document.getElementById('cancelarEdicionBtn').addEventListener('click', function(){ resetForm(); });
+        });
+
+        // Cambio de tabs (sin dependencias)
+        document.querySelectorAll('.admin-tab').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                document.querySelectorAll('.admin-tab').forEach(function(b){ b.classList.remove('active'); });
+                document.querySelectorAll('.admin-panel').forEach(function(p){ p.classList.remove('active'); });
+                btn.classList.add('active');
+                var target = document.querySelector(btn.getAttribute('data-target'));
+                if (target) target.classList.add('active');
+            });
+        });
+
+        // Dropzone básico (no sube archivos, solo UI)
+        var dz = document.querySelector('.dropzone');
+        if (dz) {
+            var input = dz.querySelector('.file-input');
+            dz.addEventListener('click', function(){ input && input.click(); });
+            dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('dragover'); });
+            dz.addEventListener('dragleave', function(){ dz.classList.remove('dragover'); });
+            dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('dragover'); /* manejar archivos e.dataTransfer.files */ });
+        }
+
+        // Año en footer
+        var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    
+// Leer productos desde localStorage
+function leerProductos() {
+    const data = localStorage.getItem('vivero_productos');
+    try { return data ? JSON.parse(data) : []; } catch(e) { return []; }
+}
+
+// Renderizar productos en el catálogo
+function renderProductos(categoria = 'todos') {
+    const productos = leerProductos();
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+
+    let filtrados = categoria === 'todos' ? productos : productos.filter(p => p.categoria === categoria);
+
+    if (!filtrados.length) {
+        grid.innerHTML = '<p style="text-align:center;">No hay productos en esta categoría.</p>';
+        return;
+    }
+
+    filtrados.forEach(p => {
+        grid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.imagen || 'imagenes/default.jpg'}" alt="${p.nombre}" class="product-img">
+                <h3>${p.nombre}</h3>
+                <p class="product-cat">${p.categoria}</p>
+                <p class="product-desc">${p.descripcion}</p>
+                <p class="product-price">$${Number(p.precio).toLocaleString()}</p>
+                <span class="badge ${p.disponibilidad ? 'success' : 'warning'}">${p.disponibilidad ? 'Disponible' : 'Agotado'}</span>
+                <button class="btn-add-cart" ${!p.disponibilidad ? 'disabled' : ''}>Agregar al carrito</button>
+            </div>
+        `;
+    });
+}
+
+// Renderizar categorías dinámicamente
+function renderCategorias() {
+    const productos = leerProductos();
+    const categorias = [...new Set(productos.map(p => p.categoria))];
+    const grid = document.querySelector('.categories-grid');
+    grid.innerHTML = '';
+
+    categorias.forEach(cat => {
+        grid.innerHTML += `
+            <div class="category-card" onclick="filterByCategory('${cat}')">
+                <i class="fas fa-leaf"></i>
+                <h3>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+                <p>Ver productos de ${cat}</p>
+            </div>
+        `;
+    });
+}
+
+// Filtrar por categoría
+function filterByCategory(cat) {
+    renderProductos(cat);
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    // Si tienes botones de filtro, activa el correspondiente
+}
+
+// Inicializar catálogo al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    renderCategorias();
+    renderProductos('todos');
+});
+
+
+        // Evento para agregar categoría
+        document.querySelector('#categorias .form-inline').addEventListener('submit', function(e){
+            e.preventDefault();
+            const input = this.querySelector('input[type="text"]');
+            const nueva = input.value.trim();
+            if (!nueva) return;
+            let lista = leerCategorias();
+            if (!lista.includes(nueva)) lista.push(nueva);
+            guardarCategorias(lista);
+            input.value = '';
+            renderCategoriasAdmin();
+        });
+
+        function renderSelectCategorias(selected = '') {
+    const select = document.getElementById('categoria');
+    const categorias = leerCategorias();
+    select.innerHTML = '';
+    if (!categorias.length) {
+        select.innerHTML = `<option value="" disabled>No hay categorías</option>`;
+        return;
+    }
+    categorias.forEach(cat => {
+        select.innerHTML += `<option value="${cat}"${cat === selected ? ' selected' : ''}>${cat.charAt(0).toUpperCase() + cat.slice(1)}</option>`;
+    });
+}
+
+        // Renderizar categorías en admin
+        function renderCategoriasAdmin() {
+            const lista = leerCategorias();
+            const ul = document.querySelector('#categorias .pill-list');
+            ul.innerHTML = '';
+            lista.forEach(cat => {
+                ul.innerHTML += `<li class="pill">${cat} <button class="icon-btn small" title="Eliminar" onclick="eliminarCategoria('${cat}')"><i class="fa-solid fa-xmark"></i></button></li>`;
+            });
+            renderSelectCategorias(); // <-- actualiza el select
+        }
+
+        // Eliminar categoría
+        function eliminarCategoria(cat) {
+            let lista = leerCategorias().filter(c => c !== cat);
+            guardarCategorias(lista);
+            renderCategoriasAdmin();
+            renderSelectCategorias(); // <-- Actualiza el select aquí
+        }
+
+        // Inicializar categorías admin
+        document.addEventListener('DOMContentLoaded', function(){
+            renderCategoriasAdmin();
+        });
+    </script>
+</body>
+    
+</html>
+
+
